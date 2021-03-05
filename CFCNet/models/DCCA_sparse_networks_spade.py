@@ -84,6 +84,9 @@ def define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm='bat
 # Classes
 ##############################################################################
 class SPADE(nn.Module):
+	"""
+	reference: https://github.com/NVlabs/SPADE
+	"""
     def __init__(self, norm_nc, label_nc):
         super().__init__()
 

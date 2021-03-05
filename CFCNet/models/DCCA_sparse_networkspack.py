@@ -15,6 +15,11 @@ import matplotlib.pyplot as plt
 
 def packing(x, r=2):
     """
+    reference: 
+
+    https://github.com/TRI-ML/packnet-sfm
+
+    
     Takes a [B,C,H,W] tensor and returns a [B,(r^2)C,H/r,W/r] tensor, by concatenating
     neighbor spatial pixels as extra channels. It is the inverse of nn.PixelShuffle
     (if you apply both sequentially you should get the same tensor)
