@@ -30,11 +30,11 @@ If you use the preprocessed data from <a href="https://github.com/fangchangma/sp
 
 If you want to use your data, please make your data into h5 dataset. (See dataloaders/dataloader.py) 
 
-Other specifications: `--continue_train` would load the lastest saved ckpt. Also set --epoch_count to tell what's the next epoch_number. Otherwise, will start from epoch 0. Set hyperparameters by `--lr`, `--batch_size`, `--weight_decay`, or others. Please refer to the options/base_options.py and options/options.py
+Other specifications: `--continue_train` would load the lastest saved ckpt. The argument `--sD_sampler` sets the sparse Depth sampling algorithm. Also set --epoch_count to tell what's the next epoch_number. Otherwise, will start from epoch 0. Set hyperparameters by `--lr`, `--batch_size`, `--weight_decay`, or others. Please refer to the options/base_options.py and options/options.py
 
 Example command:
 
-	python3 train_depth_complete.py --name kitti --checkpoints_dir ./checkpoints --lr 0.001 --batch_size 4 --train_path './kitti/train/' --test_path './kitti/val/' --continue_train --epoch_count [next_epoch_number]
+	python3 train_depth_complete.py --name dronedata_erfnet --checkpoints_dir [path_to_save_dir] --sD_sampler orb --train_path [train_data_dir] --test_path [test_data_dir] --batch_size 6 --arch sparse_erfnet
 	
 For evalutation, please run
 
