@@ -1,0 +1,1 @@
+python eval.py --data_set "nyudepth" --n_sample 500  --eval_list "datalist/nyudepth_hdf5_val.csv" --model "cspn_unet"  --batch_size_eval 1 --best_model_dir "output/drone" --cspn_norm_type="8sum" -n -r

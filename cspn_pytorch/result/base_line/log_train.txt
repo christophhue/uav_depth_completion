@@ -1,0 +1,1 @@
+epoch	 lr	 bestModel	 MSE	 RMSE	 MAE	                    DELTA1.02	 DELTA1.05	 DELTA1.10	 DELTA1.25	                    DELTA1.25^2	 DELTA1.25^3	 ABS_REL
