@@ -11,6 +11,8 @@ By Xinjing Cheng*, Peng Wang* and Ruigang Yang (*Equal contribution)
 0. [Citation](#citation)
 
 ## Introduction
+This is an adapted version of the repo. Works with custom datasets too, see NYU dataset loader (plug in your own paths).
+
 
 This repo contains the CNN models trained for depth completion from a RGB and sparse depth points, as described in the paper "[Depth Estimation via Affinity Learned with Convolutional Spatial Propagation Network](http://openaccess.thecvf.com/content_ECCV_2018/papers/Xinjing_Cheng_Depth_Estimation_via_ECCV_2018_paper.pdf)". 
 The provided models are those that were used to obtain the results reported in the paper on the benchmark datasets NYU Depth v2 and KITTI for indoor and outdoor scenes respectively. Moreover, the provided code can be used for inference on arbitrary images. 
