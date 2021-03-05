@@ -104,6 +104,8 @@ class OwnDataset(Dataset):
         # self.labels_root = depth_root
         #self.images_root = r"C:\Users\student\Documents\Drone_Dataset_update\Img"
         #self.labels_root = r"C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT"
+        self.images_root = images_root
+        self.labels_root = depth_root
 
         self.images_root = os.path.join(self.images_root, split)
         self.labels_root = os.path.join(self.labels_root, split)

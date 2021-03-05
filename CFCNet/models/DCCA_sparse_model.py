@@ -6,7 +6,9 @@ import numpy as np
 import os
 import math
 import matplotlib.pyplot as plt
-from . import midas_loss
+#from . import midas_loss
+
+
 
 def plot_grad_flow(named_parameters):
     ave_grads = []
@@ -36,7 +38,7 @@ class DCCASparseModel(BaseModel):
         if is_train:
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
             parser.add_argument('--pretrained', type=bool, default=True, help='Pretrained Encoder')
-            parser.add_argument('--arch', type=str, default=True, help='architecture to train, for example sparse_erfnet')
+            parser.add_argument('--arch', type=str, default='sparse_erfnet', help='architecture to train, for example sparse_erfnet')
         return parser
 
     def initialize(self, opt, dataset):
@@ -69,6 +71,8 @@ class DCCASparseModel(BaseModel):
             from . import DCCA_sparse_networks_orig as DCCA_sparse_networks
         elif opt.arch == "sparse_erfnet_AFF":
             from . import sparse_erfnet_mo_AFF as DCCA_sparse_networks
+        elif opt.arch == "sparse_erfnet_mo":
+            from . import sparse_erfnet_mo as DCCA_sparse_networks
 
         self.netDCCASparseNet = DCCA_sparse_networks.define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm=opt.norm, init_type=opt.init_type,	init_gain= opt.init_gain, gpu_ids= self.gpu_ids)
         # define loss functions
@@ -94,8 +98,12 @@ class DCCASparseModel(BaseModel):
 
 
         if opt.pretrained:
+            file_path = os.path.relpath("./../trained_models/erfnet_encoder_pretrained.pth.tar")
+            from pathlib import Path
+
+            file_path= Path(__file__).parent / "../trained_models/erfnet_encoder_pretrained.pth.tar"
             pretrainedEnc = torch.nn.DataParallel(ERFNet_imagenet(1000))
-            pretrainedEnc.load_state_dict(torch.load(r"./trained_models/erfnet_encoder_pretrained.pth.tar")['state_dict'])
+            pretrainedEnc.load_state_dict(torch.load(file_path)['state_dict'])
             pretrainedEnc = next(pretrainedEnc.children()).features.encoder
             pre_dict = pretrainedEnc.state_dict()
             model_dict = self.netDCCASparseNet.state_dict()
@@ -110,9 +118,10 @@ class DCCASparseModel(BaseModel):
             od2 = OrderedDict(sorted(pre_dict.items()))
             for (k, v), (k2, v2) in zip(od.items(), od2.items()):
                 od[k] = v2
-                print(k, v2)
+                #print(k, v2)
 
             self.netDCCASparseNet = load_my_state_dict(self.netDCCASparseNet,od)
+            print("loaded pretrained network")
 
 
         if self.isTrain:

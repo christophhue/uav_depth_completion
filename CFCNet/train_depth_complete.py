@@ -42,8 +42,9 @@ def main():
 	if train_opt.sD_sampler == "stereo":
 		sparsifier = SimulatedStereo(num_samples=train_opt.nP, max_depth=np.inf)
 
+	torch.backends.cudnn.enabled = True
+	torch.backends.cudnn.benchmark = True
 
-	torch.cudnn.benchmark = True
 
 	#train_dataset = KITTIDataset(train_opt.train_path, type='train',
    #             modality='rgbdm', sparsifier=sparsifier)
@@ -53,10 +54,10 @@ def main():
 	#train_dataset = NYUDataset(train_opt.train_path, type='train',
     #             modality='rgbdm', sparsifier=sparsifier)
 
-	train_dataset = OwnDataset(images_root="C:\Users\student\Documents\Drone_Dataset_update\Img",
-            depth_root="C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT",split='train',modality='rgbdm', sparsifier=sparsifier)
-	test_dataset = OwnDataset(images_root="C:\Users\student\Documents\Drone_Dataset_update\Img",
-            depth_root="C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT",
+	train_dataset = OwnDataset(images_root=r"C:\Users\student\Documents\Drone_Dataset_update\Img",
+            depth_root=r"C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT",split='train',modality='rgbdm', sparsifier=sparsifier)
+	test_dataset = OwnDataset(images_root=r"C:\Users\student\Documents\Drone_Dataset_update\Img",
+            depth_root=r"C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT",
                  split='val', modality='rgbdm', sparsifier=sparsifier)
 	# Please use this dataloder if you want to use NYU
 	#test_dataset = NYUDataset(train_opt.test_path, type='val',

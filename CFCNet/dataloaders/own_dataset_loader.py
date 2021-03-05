@@ -82,8 +82,8 @@ imagenet_eigvec = np.array([[-0.5675, 0.7192, 0.4009],
 
 class OwnDataset(Dataset):
     # nyu depth dataset 
-    def __init__(self, images_root="C:\Users\student\Documents\Drone_Dataset_update\Img",
-                 depth_root="C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT", split='train',
+    def __init__(self, images_root=r"C:\Users\student\Documents\Drone_Dataset_update\Img",
+                 depth_root=r"C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT", split='train',
                  sparsifier=None, modality='rgb', input_format='img'):
         """
         Args:
@@ -102,7 +102,8 @@ class OwnDataset(Dataset):
 
         #self.images_root = r"C:\Users\student\Documents\Drone_Dataset_update\Img"
         #self.labels_root = r"C:\Users\student\Documents\Drone_Dataset_update\RefinedDepth_GT"
-
+        self.images_root = images_root
+        self.labels_root = depth_root
         self.images_root = os.path.join(self.images_root, split)
         self.labels_root = os.path.join(self.labels_root, split)
         # self.images_root += split

@@ -34,6 +34,8 @@ class DCCASparsevalModel(BaseModel):
         # changing the default values
         if is_train:
             parser.add_argument('--lambda_L1', type=float, default=100.0, help='weight for L1 loss')
+            parser.add_argument('--arch', type=str, default='sparse_erfnet',
+                                help='architecture to train, for example sparse_erfnet')
         return parser
 
     def initialize(self, opt, dataset):
@@ -58,6 +60,16 @@ class DCCASparsevalModel(BaseModel):
         self.visual_names = ['rgb_image','depth_image','mask','output']
         # specify the models you want to save to the disk. The program will call base_model.save_networks and base_model.load_networks
         self.model_names = ['DCCASparseNet']
+
+        # load/define networks
+        if opt.arch == "sparse_erfnet":
+            from . import sparse_erfnet as DCCA_sparse_networks
+        elif opt.arch == "VGG":
+            from . import DCCA_sparse_networks_orig as DCCA_sparse_networks
+        elif opt.arch == "sparse_erfnet_AFF":
+            from . import sparse_erfnet_mo_AFF as DCCA_sparse_networks
+        elif opt.arch == "sparse_erfnet_mo":
+            from . import sparse_erfnet_mo as DCCA_sparse_networks
 
         # load/define networks
         self.netDCCASparseNet = DCCA_sparse_networks.define_DCCASparseNet(rgb_enc=True, depth_enc=True, depth_dec=True, norm=opt.norm, init_type=opt.init_type,	init_gain= opt.init_gain, gpu_ids= self.gpu_ids)
